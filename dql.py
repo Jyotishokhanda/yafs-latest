@@ -398,9 +398,10 @@ class DeepQNetwork():
         # print("REQUIRED_LATENCY: ", REQUIRED_LATENCY)
         # print()
         # print("came in reward")
-        if is_first and abs(obs_latency - REQUIRED_LATENCY) < 60:
-            # print "required latency : ", REQUIRED_LATENCY
-            # print "actual latency : ",obs_latency
+        if is_first and abs(obs_latency - REQUIRED_LATENCY) < 30:
+            # print("required latency : ", REQUIRED_LATENCY)
+            # print("actual latency : ",obs_latency)
+            # print("\n")
             # print("came in is first")
             # print("Reward function {}".format(obs_latency))
             # print("the actual latency = ",obs_latency)
@@ -554,7 +555,7 @@ final_df["latency_deviation"] = latency_deviation
 final_df["epsilon_values"] = epsilon_values
 final_df["access_rate"] = access_rate
 final_df["explore/exploit"] = total_exploit_or_explore
-final_df["states"] = random.choices(global_state,  k = len(total_rewards))
+final_df["states"] = random.sample(global_state,  len(total_rewards))
 
 f = plt.figure(1)
 

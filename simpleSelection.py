@@ -280,7 +280,7 @@ class CustomPath(Selection):
                 # print("expected_latencies: ",expected_latencies)
                 expected_latencies.sort()
                 # print("expected latencies = ",expected_latencies)
-                required_latency = expected_latencies[4]
+                required_latency = expected_latencies[1]
                 current_state["bandwidth"] = current_bandwidths
                 current_state["PR"] = current_prs
                 current_state["inst"] = current_inst

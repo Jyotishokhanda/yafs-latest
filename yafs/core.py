@@ -581,7 +581,8 @@ class Sim:
                 prop_time = self.topology.get_edge(
                     link)[Topology.LINK_PR]
 
-                final_latency = (self.env.now  + time_service  - float(message.timestamp) + float(message.timestamp_rec) - float(message.timestamp))
+                # final_latency = (self.env.now  + time_service  - float(message.timestamp) + float(message.timestamp_rec) - float(message.timestamp))
+                final_latency = ((self.env.now  + time_service  - float(message.timestamp)) + (float(message.timestamp_rec) - float(message.timestamp)))
                 waiting_time = final_latency - (2*trans_time) - (2*prop_time) - (time_service)
                 # print("transmission_time = ",trans_time)
                 # print("propagation_time = ",prop_time)
@@ -1672,7 +1673,7 @@ class Sim:
         propagation = self.topology.get_edge(
                     link)[Topology.LINK_PR]
 
-        latency_msg_link = ((transmit*2) + (propagation) + (message.inst / float(self.topology.nodeAttributes[dest_int]["IPT"])))
+        latency_msg_link = ((transmit*2) + (2*propagation) + (message.inst / float(self.topology.nodeAttributes[dest_int]["IPT"])))
         # print(latency_msg_link)
         return latency_msg_link
 
