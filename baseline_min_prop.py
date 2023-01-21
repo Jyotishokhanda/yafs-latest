@@ -13,12 +13,13 @@ import time
 import operator
 import numpy as np
 import sys
+import argparse
 is_first = True
 sys.dont_write_bytecode = True
 
 base_line_data = pd.DataFrame(columns=["state","Edge Device", "Latency"])
 state_edge_device_mapper = dict()
-
+N = 1
 def reward(obs_latency,src,dest):
 
     # print("observed latency = ", obs_latency)
@@ -51,7 +52,7 @@ def get_action(s_node,state):
     propogation_delay_sorted = sorted(propogation_delay.items(), key=operator.itemgetter(1))
     # print("action chosen successfully")
     list_edge_devices = list()
-    for i in range(8):
+    for i in range(N):
         list_edge_devices.append(propogation_delay_sorted[i][0])
     
     is_first = True
@@ -110,9 +111,19 @@ def driver(get_action,reward):
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
 
-    for i in range(12000):
-        print("episode running {}/{}".format(i+1,12000))
+    parser.add_argument("-N", "--Number_of_Devices", help = "Show Output")
+    
+    # Read arguments from command line
+    args = parser.parse_args()
+    # print(args)
+    if args.Number_of_Devices:
+        N = int(args.Number_of_Devices)
+    else:
+        N = 1
+    for i in range(10000):
+        print("episode running {}/{}".format(i+1,10000))
         driver(get_action,reward)
 
     for sedm in state_edge_device_mapper.keys():
@@ -124,4 +135,4 @@ if __name__ == '__main__':
             "Latency": edge_data[edge_data.keys()[0]]
         },ignore_index=True)
 
-base_line_data.to_csv("baseline_min_prop_8.csv",index=False)
+base_line_data.to_csv("baseline_min_prop_" + str(N) + ".csv",index=False)

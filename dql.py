@@ -1,16 +1,7 @@
-'''
 
-changed action to self.state to action mapper(state_str)
-
-
-'''
 from collections import deque
-# from typing_extensions import final
 import tensorflow as tf
 from tensorflow import keras
-#from keras.models import Sequential
-#from keras.layers import Dense
-#from keras.optimizers import Adam
 import argparse
 import random
 import numpy as np  
@@ -158,7 +149,8 @@ def get_state_input(state):
     # print("Bandwidth: ", Bandwidth)
     
     # output = linear_scaling(Pr) + linear_scaling(Inst) + linear_scaling(Bandwidth)
-    output = Pr + Inst + Bandwidth
+    # output = Pr + Inst + Bandwidth
+    output = Pr + Bandwidth
     output.append(state['input_size'])
     output.append(np.mean(avg_waiting_time))
     global_state.append(output)
@@ -479,7 +471,7 @@ else:
     NO_EPISODES = 100
 
 
-nS = 5*beta + 2
+nS = 3*beta + 2
 nA = 2**beta - 1
 dqn = DeepQNetwork(nS, nA, learning_rate(), discount_rate(), 1, 0.1, 0.00004)
 print(dqn.model.summary())
@@ -499,7 +491,7 @@ for episode in range(NO_EPISODES):
 
     # print("rewards : ", rewards)
 
-    if episode > 6000:
+    if episode > 15000:
         dqn.epsilon = 0
     # print(rewards)
     if len(rewards) > 0:

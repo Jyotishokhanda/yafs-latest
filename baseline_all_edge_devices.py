@@ -12,7 +12,7 @@ from yafs.utils import fractional_selectivity
 import time
 import numpy as np
 import sys
-
+import argparse
 sys.dont_write_bytecode = True
 
 base_line_data = pd.DataFrame(columns=["state","Edge_Device_0","Edge_Device_1","Edge_Device_2","Edge_Device_3","Edge_Device_4","Edge_Device_5","Edge_Device_6","Edge_Device_7","Edge_Device_8","Edge_Device_9","Min Latency"])
@@ -97,8 +97,8 @@ def driver(get_action,reward):
 
 if __name__ == '__main__':
 
-    for i in range(12000):
-        print("episode running {}/{}".format(i+1,12000))
+    for i in range(10000):
+        print("episode running {}/{}".format(i+1,10000))
         driver(get_action,reward)
 
     for sedm in state_edge_device_mapper.keys():

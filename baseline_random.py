@@ -13,9 +13,12 @@ import time
 import operator
 import numpy as np
 import sys
+import argparse
+import random
+
 is_first = True
 sys.dont_write_bytecode = True
-
+N = 1
 base_line_data = pd.DataFrame(columns=["state","Edge Device", "Latency"])
 state_edge_device_mapper = dict()
 latencies = []
@@ -46,9 +49,9 @@ def get_action(s_node,state):
     global is_first
     edges_state = state
     # print("action chosen successfully")
-
-    is_first = True
-
+    list_edge_devices = random.sample(range(0,10), N)  
+    is_first = True 
+    return list_edge_devices
 
 # @profile
 def main(get_action,reward,add_time, iteration, simulated_time):
@@ -103,8 +106,19 @@ def driver(get_action,reward):
 
 if __name__ == '__main__':
 
-    for i in range(12000):
-        print("episode running {}/{}".format(i+1,12000))
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("-N", "--Number_of_Devices", help = "Show Output")
+    
+    # Read arguments from command line
+    args = parser.parse_args()
+    # print(args)
+    if args.Number_of_Devices:
+        N = int(args.Number_of_Devices)
+    else:
+        N = 1
+    for i in range(10000):
+        print("episode running {}/{}".format(i+1,10000))
         driver(get_action,reward)
         # print("\n")
 
@@ -117,4 +131,4 @@ if __name__ == '__main__':
             "Latency": edge_data[edge_data.keys()[0]]
         },ignore_index=True)
 
-base_line_data.to_csv("baseline_random_8.csv",index=False)
+base_line_data.to_csv("baseline_random_" + str(N) + ".csv",index=False)

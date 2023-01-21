@@ -314,10 +314,13 @@ class CustomPath(Selection):
                     node_id = self.get_action(smallest_node,current_state)
                     list_node_id = node_id
                 
+                elif self.execution_type == "baseline_min_band":
+                    node_id = self.get_action(smallest_node,current_state)
+                    list_node_id = node_id
+                
                 elif self.execution_type == "baseline_random":
                     node_id = self.get_action(smallest_node,current_state)
-                    # list_node_id = [random.randint(0,10)]
-                    list_node_id = random.sample(range(0,10), 8)
+                    list_node_id = node_id
                     
                 elif self.execution_type == "dql":    
                     list_node_id = self.get_action(current_state,required_latency)
