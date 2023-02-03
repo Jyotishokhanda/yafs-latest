@@ -499,24 +499,24 @@ for episode in range(NO_EPISODES):
         # print("reward = ",avg_reward)
         # print("latency = ",sum(latencies)/len(latencies))
 
-        if avg_reward > -100:
-            total_rewards.append(avg_reward)
-            # total_rewards = total_rewards+avg_reward
-            total_latency.append(sum(latencies)/len(latencies))
-            # total_latency = total_latency+(sum(latencies)/len(latencies))
-            access_rate.append(np.mean(episode_access_rate))
-            # access_rate = access_rate+(np.mean(episode_access_rate))
-            epsilon_values.append(dqn.epsilon)
-            # epsilon_values=epsilon_values+dqn.epsilon
-            latency_deviation.append(np.mean(deviations))
-            # latency_deviation=latency_deviation+(np.mean(deviations))
-            count_explore = exploit_or_explore.count("explore")
-            # print "count_explore : ",count_explore
-            # print "length of explore or exploit : ",len(exploit_or_explore)
-            if count_explore > (len(exploit_or_explore) / 2):
-                total_exploit_or_explore.append("explore")
-            else:
-                total_exploit_or_explore.append("exploit")
+        # if avg_reward > -100:
+        total_rewards.append(avg_reward)
+        # total_rewards = total_rewards+avg_reward
+        total_latency.append(sum(latencies)/len(latencies))
+        # total_latency = total_latency+(sum(latencies)/len(latencies))
+        access_rate.append(np.mean(episode_access_rate))
+        # access_rate = access_rate+(np.mean(episode_access_rate))
+        epsilon_values.append(dqn.epsilon)
+        # epsilon_values=epsilon_values+dqn.epsilon
+        latency_deviation.append(np.mean(deviations))
+        # latency_deviation=latency_deviation+(np.mean(deviations))
+        count_explore = exploit_or_explore.count("explore")
+        # print "count_explore : ",count_explore
+        # print "length of explore or exploit : ",len(exploit_or_explore)
+        if count_explore > (len(exploit_or_explore) / 2):
+            total_exploit_or_explore.append("explore")
+        else:
+            total_exploit_or_explore.append("exploit")
 
         print("episode: {}/{}, score: {}, average latency: {}, required_latency: {}, e: {},"
                     .format(episode+1, NO_EPISODES, np.mean(rewards), np.mean(latencies),REQUIRED_LATENCY,dqn.epsilon))
