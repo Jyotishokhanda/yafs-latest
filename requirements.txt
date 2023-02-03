@@ -1,3 +1,4 @@
+
 absl-py==0.13.0
 aenum==2.2.0
 astor==0.8.1
@@ -15,7 +16,7 @@ cycler==0.10.0
 decorator==4.4.0
 descartes==1.1.0
 enum34==1.1.6
-Fiona==1.8.6
+# Fiona==1.8.6
 funcsigs==1.0.2
 functools32==3.2.3.post2
 futures==3.3.0

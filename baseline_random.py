@@ -117,8 +117,8 @@ if __name__ == '__main__':
         N = int(args.Number_of_Devices)
     else:
         N = 1
-    for i in range(10000):
-        print("episode running {}/{}".format(i+1,10000))
+    for i in range(30):
+        print("episode running {}/{}".format(i+1,30))
         driver(get_action,reward)
         # print("\n")
 

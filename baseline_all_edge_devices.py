@@ -97,8 +97,8 @@ def driver(get_action,reward):
 
 if __name__ == '__main__':
 
-    for i in range(10000):
-        print("episode running {}/{}".format(i+1,10000))
+    for i in range(30):
+        print("episode running {}/{}".format(i+1,30))
         driver(get_action,reward)
 
     for sedm in state_edge_device_mapper.keys():

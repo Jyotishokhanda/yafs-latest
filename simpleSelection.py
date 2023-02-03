@@ -134,7 +134,7 @@ class CustomPath(Selection):
 
         values = sensor_vicinity_data.sample()
 
-        values = values.as_matrix()
+        values = values.values
 
         values = values[0][1:]
 

@@ -468,7 +468,7 @@ args = parser.parse_args()
 if args.Episodes:
     NO_EPISODES = int(args.Episodes)
 else:
-    NO_EPISODES = 100
+    NO_EPISODES = 30000
 
 
 nS = 3*beta + 2
@@ -501,11 +501,15 @@ for episode in range(NO_EPISODES):
 
         if avg_reward > -100:
             total_rewards.append(avg_reward)
+            # total_rewards = total_rewards+avg_reward
             total_latency.append(sum(latencies)/len(latencies))
+            # total_latency = total_latency+(sum(latencies)/len(latencies))
             access_rate.append(np.mean(episode_access_rate))
+            # access_rate = access_rate+(np.mean(episode_access_rate))
             epsilon_values.append(dqn.epsilon)
+            # epsilon_values=epsilon_values+dqn.epsilon
             latency_deviation.append(np.mean(deviations))
-
+            # latency_deviation=latency_deviation+(np.mean(deviations))
             count_explore = exploit_or_explore.count("explore")
             # print "count_explore : ",count_explore
             # print "length of explore or exploit : ",len(exploit_or_explore)
@@ -529,14 +533,14 @@ for episode in range(NO_EPISODES):
     # print("time taken for the episode is: ",time.time() - t3)
     # print("\n")
 dqn.model.save("DQN_Model.h5")
-
-temp_rewards = [np.mean(total_rewards[i:i+25]) for i in range(0,len(total_rewards),25)]
-temp_latencies = [np.mean(total_latency[i:i+25]) for i in range(0,len(total_latency),25)]
-temp_loss = [np.mean(dqn.loss[i:i+25]) for i in range(0,len(dqn.loss),25)]
-temp_val_loss = [np.mean(dqn.val_loss[i:i+25]) for i in range(0,len(dqn.val_loss),25)]
-temp_deviation = [np.mean(latency_deviation[i:i+25]) for i in range(0,len(latency_deviation),25)]
-temp_epsilon = [np.mean(epsilon_values[i:i+25]) for i in range(0,len(epsilon_values),25)]
-temp_access_rate = [np.mean(access_rate[i:i+25]) for i in range(0,len(access_rate),25)] 
+num_var = 10
+temp_rewards = [np.mean(total_rewards[i:i+num_var]) for i in range(0,len(total_rewards),num_var)]
+temp_latencies = [np.mean(total_latency[i:i+num_var]) for i in range(0,len(total_latency),num_var)]
+temp_loss = [np.mean(dqn.loss[i:i+num_var]) for i in range(0,len(dqn.loss),num_var)]
+temp_val_loss = [np.mean(dqn.val_loss[i:i+num_var]) for i in range(0,len(dqn.val_loss),num_var)]
+temp_deviation = [np.mean(latency_deviation[i:i+num_var]) for i in range(0,len(latency_deviation),num_var)]
+temp_epsilon = [np.mean(epsilon_values[i:i+num_var]) for i in range(0,len(epsilon_values),num_var)]
+temp_access_rate = [np.mean(access_rate[i:i+num_var]) for i in range(0,len(access_rate),num_var)] 
 
 final_df = pd.DataFrame(columns=["total_rewards","total_latency","latency_deviation","epsilon","Access_rate"])
 final_df = {}
